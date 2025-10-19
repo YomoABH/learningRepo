@@ -24,5 +24,21 @@
 <style>
   ul {
     padding: 90px;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+  }
+  
+  li {
+    border-radius: 8px;
+    padding: 12px;
+    background-color: #2e2e2e;
+  }
+
+  .dragging {
+    opacity: .25;
+    transition: all .2s linear;
   }
 </style>
