@@ -11,6 +11,18 @@ const config = {
 }
 
 //event handlers
+function getElementHalf(event, targetElement) {
+  const rect = targetElement.getBoundingClientRect();
+  const cursorRelativeY = event.clientY - rect.top;
+  const elementHeight = rect.height;
+  
+  if (cursorRelativeY < elementHeight / 2) {
+    return 'top'
+  } else {
+    return 'bottom';
+  }
+}
+
 const onDraggableStart = (event) => {
   const targetId = event.target.dataset.draggId
 
@@ -33,8 +45,11 @@ const onDragover = (event) => {
   if (!dragging) return
 
   const container = document.querySelector(`[data-dragg-id="${dragging.dataset.parentId}"]`)
-  console.log(event.target)
-  container.insertBefore(dragging, event.target)
+  console.log(event.target.dataset)
+  if(event.target.dataset.draggContainer === 'true') return
+  const diraction = getElementHalf(event, event.target)
+  if(diraction === 'top') return container.insertBefore(dragging, event.target)
+  if(diraction === 'bottom') return container.insertBefore(dragging, event.target.nextSibling)
 }
 
 const addDraggbleEvents = (node) => {
